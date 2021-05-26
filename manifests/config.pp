@@ -19,14 +19,14 @@
 # Copyright 2013 Hubspot
 #
 class nexus::config(
-  $nexus_root = $::nexus::nexus_root,
-  $nexus_home_dir = $::nexus::nexus_home_dir,
-  $nexus_host = $::nexus::nexus_host,
-  $nexus_port = $::nexus::nexus_port,
-  $nexus_context = $::nexus::nexus_context,
-  $nexus_work_dir = $::nexus::nexus_work_dir,
-  $nexus_data_folder = $::nexus::nexus_data_folder,
-  $version = $::nexus::version,
+  String $nexus_root,
+  String $nexus_home_dir,
+  String $nexus_host,
+  String $nexus_port,
+  String $nexus_context,
+  String $nexus_work_dir,
+  String $version,
+  Optional[String] $nexus_data_folder = undef,
 ) {
 
   if $version !~ /\d.*/ or versioncmp($version, '3.1.0') >= 0 {
@@ -82,4 +82,5 @@ class nexus::config(
       notify => Service['nexus']
     }
   }
+
 }

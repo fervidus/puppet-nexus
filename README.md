@@ -1,7 +1,8 @@
 # Sonatype Nexus Puppet module
-Install and configure Sonatype Nexus.
+Install and configure Sonatype Nexus
 
-This module was forked from [hubspot/nexus](https://forge.puppet.com/hubspot/nexus).
+This module was forked from [puppets-epic-show-theatre](https://github.com/puppets-epic-show-theatre/puppet-nexus), original work by [hubspot/nexus](https://forge.puppet.com/hubspot/nexus)
+
 
 ## Requires
 * puppet/wget
@@ -38,14 +39,14 @@ NOTE: If you wish to deploy a Nexus Pro server instead of Nexus OSS set
 ### Usage(draft): Nexus 3 support
 
 ```puppet
-class role_nexus_server {
+class profile_nexus_server {
 
   class{ '::nexus':
     version               => '3.0.0',
     revision              => '03',
     download_site         => 'http://download.sonatype.com/nexus/3',
-    nexus_type            => 'unix',
-    nexus_work_dir_manage => false
+    type                  => 'bundle',
+    nexus_work_dir_manage => false,
   }
 
 }

@@ -27,22 +27,23 @@
 #
 # Copyright 2013 Hubspot
 #
+
 class nexus::package (
-  $version = $::nexus::version,
-  $revision = $::nexus::revision,
-  $deploy_pro = $::nexus::deploy_pro,
-  $download_site = $::nexus::download_site,
-  $nexus_type = $::nexus::nexus_type,
-  $nexus_root = $::nexus::nexus_root,
-  $nexus_home_dir = $::nexus::nexus_home_dir,
-  $nexus_user = $::nexus::nexus_user,
-  $nexus_group = $::nexus::nexus_group,
-  $nexus_work_dir = $::nexus::nexus_work_dir,
-  $nexus_work_dir_manage = $::nexus::nexus_work_dir_manage,
-  $nexus_work_recurse = $::nexus::nexus_work_recurse,
-  $nexus_selinux_ignore_defaults = $::nexus::nexus_selinux_ignore_defaults,
-  $download_folder = $::nexus::download_folder,
-  $md5sum = $::nexus::md5sum,
+  String $version,
+  String $revision,
+  Boolean $deploy_pro,
+  String $download_site,
+  String $type,
+  String $nexus_root,
+  String $nexus_home_dir,
+  String $nexus_user,
+  String $nexus_group,
+  Optional[String] $nexus_work_dir,
+  Boolean $nexus_work_dir_manage,
+  Boolean $nexus_work_recurse,
+  Boolean $nexus_selinux_ignore_defaults,
+  String $download_folder,
+  Optional[String] $md5sum,
 ) {
 
   $nexus_home      = "${nexus_root}/${nexus_home_dir}"
@@ -55,7 +56,7 @@ class nexus::package (
     $bundle_type = ''
   }
 
-  $nexus_archive   = "nexus${bundle_type}-${full_version}-${nexus_type}.tar.gz"
+  $nexus_archive   = "nexus${bundle_type}-${full_version}-${type}.tar.gz"
   $download_url    = "${download_site}/${nexus_archive}"
   $dl_file         = "${download_folder}/${nexus_archive}"
   $nexus_home_real = "${nexus_root}/nexus${bundle_type}-${full_version}"
@@ -115,4 +116,5 @@ class nexus::package (
     target  => $nexus_home_real,
     require => Archive[ $dl_file ]
   }
+
 }

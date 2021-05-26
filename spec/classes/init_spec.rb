@@ -18,13 +18,12 @@ describe 'nexus', type: :class do
 
         it 'fails if no version configured' do
           expect { is_expected.to compile }.to raise_error(RSpec::Expectations::ExpectationNotMetError,
-                                                           %r{Cannot set version nexus version to "latest" or leave undefined.})
+                   %r{Cannot set version nexus version to "latest" or leave undefined.})
         end
       end
 
       context 'with a version set' do
         it { is_expected.to contain_class('nexus') }
-        it { is_expected.to contain_class('nexus::params') }
 
         it {
           is_expected.to contain_group('nexus').with(

@@ -1,0 +1,20 @@
+<%- |
+  String $nexus_script,
+  String $nexus_user,
+  String $nexus_group
+| -%>
+[Unit]
+Description=nexus service
+After=network.target
+
+[Service]
+Type=forking
+LimitNOFILE=65536
+ExecStart=<%= $nexus_script %> start
+ExecStop=<%= $nexus_script %> stop
+User=<%= $nexus_user %>
+Group=<%= $nexus_group %>
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

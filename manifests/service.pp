@@ -33,13 +33,14 @@
 #
 # Copyright 2013 Hubspot
 #
+
 class nexus::service (
-  $nexus_home = $::nexus::nexus_home,
-  $nexus_user = $::nexus::nexus_user,
-  $nexus_group = $::nexus::nexus_group,
-  $version = $::nexus::version,
+  String $nexus_home,
+  String $nexus_user,
+  String $nexus_group,
+  String $version,
+  String $nexus_script = "${nexus_home}/bin/nexus"
 ) {
-  $nexus_script = "${nexus_home}/bin/nexus"
 
   if ($::operatingsystem == 'Debian' and versioncmp($::operatingsystemrelease, '8.0') > 0) or
   ($::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '15.04') > 0) or
@@ -48,9 +49,13 @@ class nexus::service (
       mode    => '0644',
       owner   => 'root',
       group   => 'root',
-      content => template('nexus/nexus.systemd.erb'),
+      content => epp('nexus/nexus.systemd.epp', {
+        'nexus_script' => $nexus_script,
+        'nexus_user'   => $nexus_user,
+        'nexus_group'  => $nexus_group,
+      }),
     }
-    -> service { 'nexus':
+    ~> service { 'nexus':
       ensure => running,
       name   => 'nexus',
       enable => true,
@@ -97,9 +102,11 @@ class nexus::service (
       ensure  => running,
       enable  => true,
       status  => $status_line,
-      require => [File['/etc/init.d/nexus'],
+      require => [ File['/etc/init.d/nexus'],
         File_line['nexus_NEXUS_HOME'],
-        File_line['nexus_RUN_AS_USER'],]
+        File_line['nexus_RUN_AS_USER'],
+      ]
     }
   }
+
 }

@@ -18,7 +18,7 @@ describe 'nexus::package', type: :class do
           'nexus_work_dir'                => '/srv/sonatype-work/nexus',
           'nexus_work_dir_manage'         => true,
           'nexus_work_recurse'            => true,
-          'nexus_type'                    => 'bundle',
+          'type'                          => 'bundle',
           'nexus_selinux_ignore_defaults' => true,
           # Assume a good revision as init.pp screens for us
           'revision'                      => '01',
