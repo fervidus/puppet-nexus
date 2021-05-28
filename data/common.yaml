@@ -5,18 +5,18 @@ nexus::type: 'bundle'
 nexus::deploy_pro: false
 nexus::download_site: 'http://download.sonatype.com/nexus/oss'
 nexus::pro_download_site: 'http://download.sonatype.com/nexus/professional-bundle'
-nexus::nexus_root: '/srv'
+nexus::nexus_root: '/opt'
 nexus::nexus_home_dir: 'nexus'
 nexus::nexus_work_recurse: true
 nexus::nexus_work_dir_manage: true
 nexus::nexus_selinux_ignore_defaults: true
 nexus::nexus_user: 'nexus'
 nexus::nexus_group: 'nexus'
-nexus::nexus_host: '0.0.0.0'
+nexus::nexus_host: "%{facts.ipaddress}"
 nexus::nexus_port: '8081'
 nexus::nexus_context: '/nexus'
 nexus::nexus_manage_user: true
 nexus::nexus_data_folder:
-nexus::download_folder: '/srv'
+nexus::download_folder: '/opt'
 nexus::manage_config: true
 nexus::md5sum:

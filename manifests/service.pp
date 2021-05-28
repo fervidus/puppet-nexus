@@ -43,8 +43,9 @@ class nexus::service (
 ) {
 
   if ($::operatingsystem == 'Debian' and versioncmp($::operatingsystemrelease, '8.0') > 0) or
-  ($::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '15.04') > 0) or
-  (($::operatingsystem == 'CentOS' or $::operatingsystem == 'RedHat') and versioncmp($::operatingsystemmajrelease, '7') >= 0) {
+    ($::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '15.04') > 0) or
+    (($::operatingsystem == 'CentOS' or $::operatingsystem == 'RedHat') and versioncmp($::operatingsystemmajrelease, '7') >= 0) {
+
     file { '/lib/systemd/system/nexus.service':
       mode    => '0644',
       owner   => 'root',
@@ -102,7 +103,8 @@ class nexus::service (
       ensure  => running,
       enable  => true,
       status  => $status_line,
-      require => [ File['/etc/init.d/nexus'],
+      require => [
+        File['/etc/init.d/nexus'],
         File_line['nexus_NEXUS_HOME'],
         File_line['nexus_RUN_AS_USER'],
       ]
