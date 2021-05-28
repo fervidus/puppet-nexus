@@ -42,10 +42,15 @@ class nexus::config(
     $conf_path = 'conf/nexus.properties'
     $nexus_properties_file = "${nexus_root}/${nexus_home_dir}/${conf_path}"
   }
+
   $nexus_data_dir = "${nexus_root}/${nexus_home_dir}/data"
 
   # Nexus >=3.x do no necesarily have a properties file in place to
   # modify. Make sure that there is at least a minmal file there
+  file { "${nexus_work_dir}/etc":
+    ensure =>  directory,
+  }
+
   file { $nexus_properties_file:
     ensure =>  present,
   }
